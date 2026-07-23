@@ -1,0 +1,58 @@
+experiment:
+  name: iemocap_6
+  dataset: iemocap
+  task_type: emotion
+  class_num: 6
+  modalities: atv
+
+data:
+  root: data
+  file: data/iemocap/data_iemocap.pkl
+  split: session_5_test
+  feature_dims:
+    a: 100
+    t: 768
+    v: 512
+  label_mapping:
+    Happiness: 0
+    Sadness: 1
+    Neutral: 2
+    Anger: 3
+    Excited: 4
+    Frustrated: 5
+
+model:
+  name: DGL-PCA
+  hidden_size: 200
+  graph_branch: han
+  han_layers: 8
+  use_han_residual: true
+  use_graph_transformer: true
+  graph_transformer_nheads: 7
+  use_crossmodal: true
+  num_crossmodal: 2
+  num_self_att: 3
+  crossmodal_nheads: 2
+  use_speaker: true
+  no_graph: false
+  edge_type: temp_multi
+
+training:
+  optimizer: adamw
+  learning_rate: 0.00025
+  batch_size: 32
+  epochs: 60
+  drop_rate: 0.5
+  weight_decay: 0.00001
+  loss_type: cross_entropy
+  monitor_metric: f1_weighted
+  early_stop_patience: 0
+
+graph:
+  wp: 6
+  wf: 8
+  temporal_decay_beta: 0.3
+  use_relative_time_encoding: true
+
+checkpoint:
+  path: checkpoints/iemocap/iemocap_6_seed{seed}.pt

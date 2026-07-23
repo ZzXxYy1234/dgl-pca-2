@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dgl-pca"
+dynamic = ["version"]
+description = "DGL-PCA implementation for multimodal conversational emotion recognition."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "DGL-PCA Authors" }
+]
+keywords = [
+  "multimodal emotion recognition",
+  "conversational emotion recognition",
+  "heterogeneous graph attention",
+  "multimodal learning"
+]
+dependencies = [
+  "numpy",
+  "pyyaml",
+  "torch"
+]
+
+[project.scripts]
+dgl-pca-evaluate = "dgl_pca.training.evaluate:main"
+dgl-pca-train = "dgl_pca.training.train:main"
+dgl-pca-validate-configs = "dgl_pca.utils.validate_configs:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "dgl_pca.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["dgl_pca*"]

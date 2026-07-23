@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+env/
+.conda_envs/
+envs/
+
+# Local tooling
+.idea/
+.vscode/
+.cursor/
+.trae/
+
+# Logs and temporary outputs
+logs/
+outputs/
+training_visualization/
+ablation_outputs/
+tmp/
+*.log
+
+# Data policy
+data/*
+!data/mosei/
+!data/mosei/.gitkeep
+
+# Model checkpoints
+checkpoints/*
+!checkpoints/mosei/
+!checkpoints/mosei/.gitkeep
+
+# Large binary artifacts
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.mp4
+*.wav
+*.avi

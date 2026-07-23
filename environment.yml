@@ -1,0 +1,13 @@
+name: dgl-pca
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.16
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu118
+      - torch==2.0.1+cu118
+      - numpy==1.26.4
+      - pyyaml==6.0.2

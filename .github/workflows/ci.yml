@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Smoke checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Validate configs
+        run: python -m dgl_pca.utils.validate_configs configs
+
+      - name: Smoke test
+        run: |
+          python eval.py --smoke-test
+          python train.py --config configs/mosei_sentiment_2.yaml --seed 24 --dry-run
+          python -m unittest discover -s tests

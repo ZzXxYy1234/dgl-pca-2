@@ -1,0 +1,63 @@
+experiment:
+  name: mosei_sentiment_2
+  dataset: mosei
+  task_type: sentiment
+  class_num: 2
+  modalities: atv
+  seeds: [24, 42, 114, 520, 2023]
+
+data:
+  root: data
+  file: data/mosei/data_mosei_2class.pkl
+  split: standard
+  feature_dims:
+    a: 80
+    t: 768
+    v: 35
+  label_mapping:
+    Negative: 0
+    Positive: 1
+
+model:
+  name: DGL-PCA
+  hidden_size: 200
+  rnn: transformer
+  encoder_nlayers: 1
+  encoder_nheads: 4
+  graph_branch: han
+  han_layers: 12
+  use_han_residual: true
+  use_graph_transformer: true
+  graph_transformer_nheads: 4
+  use_crossmodal: true
+  num_crossmodal: 2
+  num_self_att: 3
+  crossmodal_nheads: 2
+  self_att_nheads: 2
+  use_speaker: true
+  use_highway: true
+  no_graph: false
+  edge_type: temp_multi
+
+training:
+  optimizer: adamw
+  learning_rate: 0.0002
+  batch_size: 64
+  epochs: 60
+  drop_rate: 0.3
+  weight_decay: 0.00001
+  loss_type: focal
+  focal_gamma: 1.0
+  label_smoothing: 0.0
+  binary_threshold: 0.55
+  early_stop_patience: 8
+  early_stop_min_delta: 0.001
+
+graph:
+  wp: 5
+  wf: 8
+  temporal_decay_beta: 0.4
+  use_relative_time_encoding: true
+
+checkpoint:
+  path: checkpoints/mosei/mosei_sentiment_2_seed{seed}.pt
